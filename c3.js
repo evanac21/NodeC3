@@ -1,3 +1,9 @@
+/*
+    Christmas Card Creator (Node Version)
+    A re-written version of the original: https://github.com/evanac21/CCC
+
+    Created by Evan Carter
+*/
 const fs = require('fs');
 const rls = require('readline-sync');
 var nodemailer = require('nodemailer');

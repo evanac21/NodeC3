@@ -56,7 +56,7 @@ function sendMail() {
     service: 'gmail',
     auth: {
       user: 'nodemailserver@gmail.com',
-      pass: 'bobcat2002'
+      pass: ''
     }
   });
 

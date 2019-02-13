@@ -1,16 +1,17 @@
 const fs = require('fs');
 const rls = require('readline-sync');
-const nodemailer = require('node-mailer');
+var nodemailer = require('node-mailer');
 var filler;
-readFiller();
+var filler = fs.readFileSync("filler.txt").toString();
 runtime();
 function runtime() {
   console.log("NodeC3");
   console.log("\r\n");
   console.log("1. Create");
   console.log("2. Email");
-  console.log("3. DEBUG");
-  console.log("4. Exit");
+  console.log("3. View current")
+  console.log("4. DEBUG");
+  console.log("5. Exit");
   var opt = rls.question("");
   switch(opt) {
     case "1":
@@ -20,10 +21,15 @@ function runtime() {
       sendMail();
       break;
     case "3":
-      //Used for debugging purposes(to be removed in release copy)
-      readFiller();
+      cls();
+      console.log("Current:  " + final);
+      runtime();
       break;
     case "4":
+      //Used for debugging purposes(to be removed in release copy)
+      console.log(filler);
+      break;
+    case "5":
       process.exit(0);
       break;
   }
@@ -34,13 +40,6 @@ function cls() {
     console.log('\r\n');
   }
 }
-function readFiller() {
-  fs.readFile("filler.txt", function read(err, data) {
-    if(err) {throw err;}
-    var comp = String(data);
-    filler = comp;
-  });
-}
 function createCard() {
   cls();
    var to = rls.question("Recipient?: ");
@@ -50,6 +49,7 @@ function createCard() {
    runtime();
 }
 function sendMail() {
+  cls();
   var recp = rls.question("To?: ");
   var rtx = final;
   var transporter = nodemailer.createTransport({

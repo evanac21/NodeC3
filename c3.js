@@ -1,10 +1,10 @@
 const fs = require('fs');
 const rls = require('readline-sync');
-var nodemailer = require('node-mailer');
-var filler;
+var nodemailer = require('nodemailer');
 var filler = fs.readFileSync("filler.txt").toString();
 runtime();
 function runtime() {
+  //Main Function
   console.log("NodeC3");
   console.log("\r\n");
   console.log("1. Create");
@@ -35,12 +35,14 @@ function runtime() {
   }
 }
 function cls() {
+  //Clears Screen
   var lines = process.stdout.getWindowSize()[1];
   for(var i = 0; i < lines; i++) {
     console.log('\r\n');
   }
 }
 function createCard() {
+  //Prompt that creates card
   cls();
    var to = rls.question("Recipient?: ");
    var from = rls.question("From?: ");
@@ -49,24 +51,24 @@ function createCard() {
    runtime();
 }
 function sendMail() {
+  //Sends mail to a given recipient
   cls();
   var recp = rls.question("To?: ");
   var rtx = final;
+  var pswd = rls.question("Pass?: ");
   var transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
       user: 'nodemailserver@gmail.com',
-      pass: ''
+      pass: pswd
     }
   });
-
   var mailOptions = {
     from: 'nodemailserver@gmail.com',
     to: recp,
     subject: 'Node Automated Emailer',
     text: rtx
   };
-
   transporter.sendMail(mailOptions, function(error, info){
     if (error) {
       console.log(error);
